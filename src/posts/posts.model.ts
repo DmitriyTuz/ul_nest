@@ -5,8 +5,10 @@ import {UserRoles} from "../roles/user-roles.model";
 import {User} from "../users/users.model";
 
 interface PostCreationAttrs {
-    email: string;
-    password: string;
+    title: string;
+    content: string;
+    userId: number;
+    image: string;
 }
 
 @Table({tableName: 'posts'})
