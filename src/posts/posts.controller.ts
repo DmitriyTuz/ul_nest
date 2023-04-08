@@ -1,6 +1,6 @@
 import {
   Body,
-  Controller,
+  Controller, Get, Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -18,4 +18,10 @@ export class PostsController {
   createPost(@Body() dto: CreatePostDto, @UploadedFile() image) {
     return this.postService.create(dto, image);
   }
+
+  @Get("/:title")
+  getByTitle(@Param("title") title: string) {
+    return this.postService.getPostByTitle(title);
+  }
+
 }

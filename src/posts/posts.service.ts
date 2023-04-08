@@ -9,11 +9,13 @@ export class PostsService {
   constructor(
     @InjectModel(Post) private postRepository: typeof Post,
     private fileService: FilesService
+
   ) {}
 
   async create(dto: CreatePostDto, image: any) {
     // try {
-    let notUniqueTitle = await Post.findOne({ where: { title: dto.title } });
+    let notUniqueTitle = await this.postRepository.findOne({ where: { title: dto.title } });
+    // let notUniqueTitle = await this.postService.getPostByTitle(dto.title)
     if (notUniqueTitle) {
       throw new HttpException(
         "A post with the same name already exists in the database",
@@ -26,5 +28,10 @@ export class PostsService {
     // } catch (e) {
     //     console.log(e)
     // }
+  }
+
+  async getPostByTitle(title: string) {
+    const post = await this.postRepository.findOne({ where: { title } });
+    return post;
   }
 }
